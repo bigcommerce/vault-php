@@ -2,11 +2,14 @@
 
 namespace VaultPhp\Commands;
 
-use VaultPhp\Responses\ReadResponse;
+use VaultPhp\Responses\DeleteResponse;
 
-class ReadCommand extends AbstractCommand
+class DeleteCommand extends AbstractCommand
 {
-    protected $responseClass = ReadResponse::class;
+    /** @var string */
+    protected $method = 'DELETE';
+
+    protected $responseClass = DeleteResponse::class;
 
     /**
      * @param array $parameters

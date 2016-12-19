@@ -18,6 +18,10 @@ abstract class AbstractResponse
     /** @var array */
     protected $jsonBody;
 
+    /**
+     * @param AbstractCommand $command
+     * @param Response $response
+     */
     public function __construct(AbstractCommand $command, Response $response)
     {
         $this->command = $command;
@@ -26,16 +30,25 @@ abstract class AbstractResponse
         $this->processResponse();
     }
 
+    /**
+     * @return int
+     */
     public function getStatus()
     {
         return $this->response->getStatusCode();
     }
 
+    /**
+     * @return AbstractCommand
+     */
     public function getCommand()
     {
         return $this->command;
     }
 
+    /**
+     * @return mixed
+     */
     public function getWarnings()
     {
         return $this->jsonBody['warnings'];
@@ -43,8 +56,7 @@ abstract class AbstractResponse
 
     private function parseResponse()
     {
-        if($body = $this->response->getBody())
-        {
+        if ($body = $this->response->getBody()) {
             $this->jsonBody = json_decode($body, true);
         }
     }
