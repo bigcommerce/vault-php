@@ -5,9 +5,9 @@ VaultPhp - PHP API Client for HashiCorp Vault
 Example Usage
 -------------
 
-    $client = new VaultPhp\Client([
+    $client = new VaultPhp\Client(new \GuzzleHttp\Client(), [
         'endpoint' => 'http://localhost:8200',
-        'token' => '<AUTH TOKEN>',
+        'token'    => '<AUTH TOKEN>',
     ]);
 
     // Write data to Vault
@@ -24,6 +24,8 @@ Example Usage
     // Read complex data types from Vault
     echo $client->read('secret/my-complex-key')->getData('array')[2]; // 3
 
+    // Delete data from Vault
+    $client->delete('secret/my-complex-key');
 
 License
 -------

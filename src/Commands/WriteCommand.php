@@ -11,15 +11,16 @@ class WriteCommand extends AbstractCommand
 
     protected $responseClass = WriteResponse::class;
 
+    /**
+     * @param array $parameters
+     */
     protected function setRequestParameters(array $parameters)
     {
         list($path, $data) = $parameters;
 
-
         $this->uriPath = '/'.ltrim($path, '/');
 
-        if($data)
-        {
+        if ($data) {
             $this->body = $data;
         }
     }

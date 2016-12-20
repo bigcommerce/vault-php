@@ -24,12 +24,19 @@ abstract class AbstractCommand
     /** @var any */
     protected $body;
 
+    /**
+     * @param Client $client
+     * @param array $parameters
+     */
     public function __construct(Client $client, array $parameters)
     {
         $this->client = $client;
         $this->setRequestParameters($parameters);
     }
 
+    /**
+     * @return Client
+     */
     public function getClient()
     {
         return $this->client;
@@ -38,16 +45,13 @@ abstract class AbstractCommand
     protected abstract function setRequestParameters(array $parameters);
 
     /**
-        Run Command
-
-        @return AbstractResponse
-    */
+     * @return mixed
+     */
     public function run()
     {
         $params = [];
 
-        if($this->body)
-        {
+        if ($this->body) {
             $params['json'] = $this->body;
         }
 
@@ -56,6 +60,10 @@ abstract class AbstractCommand
         return $this->makeResponse($data);
     }
 
+    /**
+     * @param Response $response
+     * @return mixed
+     */
     protected function makeResponse(Response $response)
     {
         return new $this->responseClass($this, $response);

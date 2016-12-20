@@ -1,0 +1,10 @@
+language: php
+cache:
+  directories:
+    - vendor
+php:
+  - 7.0
+install:
+  - composer install --no-interaction
+script:
+  - vendor/bin/phpunit
