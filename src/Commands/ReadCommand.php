@@ -8,6 +8,9 @@ class ReadCommand extends AbstractCommand
 {
     protected $responseClass = ReadResponse::class;
 
+    /**
+     * @param array $parameters
+     */
     protected function setRequestParameters(array $parameters)
     {
         list($path) = $parameters;
