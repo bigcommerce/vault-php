@@ -6,8 +6,8 @@ Example Usage
 -------------
 
     $client = new VaultPhp\Client(new \GuzzleHttp\Client(), [
-        'endpoint' => 'http://localhost:8200',
-        'token'    => '<AUTH TOKEN>',
+        VaultPhp\Client::ENDPOINT => 'http://localhost:8200',
+        VaultPhp\Client::TOKEN    => '<AUTH TOKEN>',
     ]);
 
     // Write data to Vault
