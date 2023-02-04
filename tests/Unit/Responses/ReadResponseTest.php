@@ -2,13 +2,14 @@
 
 namespace VaultPhp\Test\Unit;
 
+use PHPUnit\Framework\TestCase;
 use VaultPhp\Client;
 use VaultPhp\Commands\ReadCommand;
 use VaultPhp\Responses\ReadResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
-class ReadResponseTest extends \PHPUnit_Framework_TestCase
+class ReadResponseTest extends TestCase
 {
     public function testGetStatus()
     {
