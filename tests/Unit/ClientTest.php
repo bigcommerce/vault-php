@@ -3,10 +3,11 @@
 namespace VaultPhp\Test\Unit;
 
 use GuzzleHttp\Psr7\Request;
+use PHPUnit\Framework\TestCase;
 use VaultPhp\Client;
 use GuzzleHttp\Client as GuzzleClient;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     public function testSetConfig()
     {
@@ -58,7 +59,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ['X-Vault-Token' => $expectedToken]
         );
 
-        $guzzleClient = $this->getMock(GuzzleClient::class, ['send']);
+        $guzzleClient = $this->getMockBuilder(GuzzleClient::class)
+            ->setMethods(['send'])
+            ->getMock();
         $guzzleClient
             ->expects($this->once())
             ->method('send')

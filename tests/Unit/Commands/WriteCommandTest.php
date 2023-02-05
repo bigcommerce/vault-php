@@ -3,13 +3,14 @@
 namespace VaultPhp\Test\Unit;
 
 use GuzzleHttp\Psr7\Request;
+use PHPUnit\Framework\TestCase;
 use VaultPhp\Client;
 use VaultPhp\Commands\WriteCommand;
 use VaultPhp\Responses\WriteResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
-class WriteCommandTest extends \PHPUnit_Framework_TestCase
+class WriteCommandTest extends TestCase
 {
     public function testRunSendsCorrectRequestAndReturnsCorrectResponse()
     {
@@ -28,7 +29,9 @@ class WriteCommandTest extends \PHPUnit_Framework_TestCase
         );
         $expectedGuzzleResponse = new GuzzleResponse();
 
-        $guzzleClient = $this->getMock(GuzzleClient::class, ['send']);
+        $guzzleClient = $this->getMockBuilder(GuzzleClient::class)
+            ->setMethods(['send'])
+            ->getMock();
         $guzzleClient
             ->expects($this->once())
             ->method('send')
