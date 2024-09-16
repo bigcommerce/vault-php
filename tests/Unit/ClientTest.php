@@ -17,9 +17,9 @@ class ClientTest extends TestCase
 
         $client = new Client(new GuzzleClient, []);
         $client->setConfig([
-            'version'  => $expectedApiVersion,
-            'endpoint' => $expectedEndpoint,
-            'token'    => $expectedToken,
+            Client::VERSION  => $expectedApiVersion,
+            Client::ENDPOINT => $expectedEndpoint,
+            Client::TOKEN    => $expectedToken,
         ]);
 
         $this->assertEquals($expectedApiVersion, $client->getApiVersion());
@@ -34,9 +34,9 @@ class ClientTest extends TestCase
         $expectedToken      = 'asdf';
 
         $client = new Client(new GuzzleClient, [
-            'version'  => $expectedApiVersion,
-            'endpoint' => $expectedEndpoint,
-            'token'    => $expectedToken,
+            Client::VERSION  => $expectedApiVersion,
+            Client::ENDPOINT => $expectedEndpoint,
+            Client::TOKEN    => $expectedToken,
         ]);
 
         $this->assertEquals($expectedApiVersion, $client->getApiVersion());
@@ -51,7 +51,10 @@ class ClientTest extends TestCase
         $expectedToken      = 'asds89j1239e';
         $expectedUriPath    = 'secret/test';
         $expectedMethod     = 'POST';
-        $expectedParams     = [''];
+        $expectedParams     = [
+            'timeout'         => 30.0,
+            'connect_timeout' => 2.0,
+        ];
 
         $expectedRequest = new Request(
             $expectedMethod,
@@ -68,10 +71,12 @@ class ClientTest extends TestCase
             ->with($expectedRequest, $expectedParams);
 
         $client = new Client($guzzleClient, [
-            'version'  => $expectedApiVersion,
-            'endpoint' => $expectedEndpoint,
-            'token'    => $expectedToken,
+            Client::VERSION         => $expectedApiVersion,
+            Client::ENDPOINT        => $expectedEndpoint,
+            Client::TOKEN           => $expectedToken,
+            Client::READ_TIMEOUT    => $expectedParams['timeout'],
+            Client::CONNECT_TIMEOUT => $expectedParams['connect_timeout'],
         ]);
-        $client->request($expectedMethod, $expectedUriPath, $expectedParams);
+        $client->request($expectedMethod, $expectedUriPath);
     }
 }

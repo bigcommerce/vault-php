@@ -18,9 +18,13 @@ class WriteCommandTest extends TestCase
         $expectedEndpoint   = 'https://localhost';
         $expectedToken      = 'asds89j1239e';
         $expectedUriPath    = 'secret/test';
-        $expectedPayload    = ['cert' => '234r43fgrsgdfg'];
         $expectedMethod     = 'POST';
-        $expectedParams     = ['json' => $expectedPayload];
+        $expectedPayload    = ['cert' => '234r43fgrsgdfg'];
+        $expectedOptions    = [
+            'json'            => $expectedPayload,
+            'timeout'         => 0.0,
+            'connect_timeout' => 0.0,
+        ];
 
         $expectedGuzzleRequest = new Request(
             $expectedMethod,
@@ -35,13 +39,13 @@ class WriteCommandTest extends TestCase
         $guzzleClient
             ->expects($this->once())
             ->method('send')
-            ->with($expectedGuzzleRequest, $expectedParams)
+            ->with($expectedGuzzleRequest, $expectedOptions)
             ->will($this->returnValue($expectedGuzzleResponse));
 
         $client = new Client($guzzleClient, [
-            'version'  => $expectedApiVersion,
-            'endpoint' => $expectedEndpoint,
-            'token'    => $expectedToken,
+            Client::VERSION  => $expectedApiVersion,
+            Client::ENDPOINT => $expectedEndpoint,
+            Client::TOKEN    => $expectedToken,
         ]);
 
         $writeCommand     = new WriteCommand($client, [$expectedUriPath, $expectedPayload]);

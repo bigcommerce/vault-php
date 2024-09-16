@@ -19,7 +19,10 @@ class DeleteCommandTest extends TestCase
         $expectedToken      = 'asds89j1239e';
         $expectedUriPath    = 'secret/test';
         $expectedMethod     = 'DELETE';
-        $expectedParams     = [];
+        $expectedOptions    = [
+            'timeout'         => 0.0,
+            'connect_timeout' => 0.0,
+        ];
 
         $expectedGuzzleRequest = new Request(
             $expectedMethod,
@@ -34,13 +37,13 @@ class DeleteCommandTest extends TestCase
         $guzzleClient
             ->expects($this->once())
             ->method('send')
-            ->with($expectedGuzzleRequest, $expectedParams)
+            ->with($expectedGuzzleRequest, $expectedOptions)
             ->will($this->returnValue($expectedGuzzleResponse));
 
         $client = new Client($guzzleClient, [
-            'version'  => $expectedApiVersion,
-            'endpoint' => $expectedEndpoint,
-            'token'    => $expectedToken,
+            Client::VERSION  => $expectedApiVersion,
+            Client::ENDPOINT => $expectedEndpoint,
+            Client::TOKEN    => $expectedToken,
         ]);
 
         $deleteCommand     = new DeleteCommand($client, [$expectedUriPath]);
