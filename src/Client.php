@@ -95,7 +95,7 @@ class Client
      * @param array|null $params
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function request($method, $uriPath, array $params = null)
+    public function request($method, $uriPath, ?array $params = null)
     {
         $request = new Request(
             $method,
