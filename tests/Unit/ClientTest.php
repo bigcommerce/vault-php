@@ -60,7 +60,7 @@ class ClientTest extends TestCase
         );
 
         $guzzleClient = $this->getMockBuilder(GuzzleClient::class)
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
         $guzzleClient
             ->expects($this->once())
