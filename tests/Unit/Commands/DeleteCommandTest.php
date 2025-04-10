@@ -29,13 +29,13 @@ class DeleteCommandTest extends TestCase
         $expectedGuzzleResponse = new GuzzleResponse();
 
         $guzzleClient = $this->getMockBuilder(GuzzleClient::class)
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
         $guzzleClient
             ->expects($this->once())
             ->method('send')
             ->with($expectedGuzzleRequest, $expectedParams)
-            ->will($this->returnValue($expectedGuzzleResponse));
+            ->willReturn($expectedGuzzleResponse);
 
         $client = new Client($guzzleClient, [
             'version'  => $expectedApiVersion,
